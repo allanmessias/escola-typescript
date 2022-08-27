@@ -19,8 +19,11 @@ export class CreateStudentUseCase {
 		const student = new Student(data);
 
 		await this.studentRepository.save(student);
+		await this.sendMail(student);
+	}
 
-		await this.mailProvider.sendmail({
+	async sendMail(data: ICreateStudentRequestDTO) {
+		return await this.mailProvider.sendMail({
 			to: {
 				name: data.name,
 				email: data.email,

@@ -16,7 +16,7 @@ export class MailTrapMailProvider implements IMailProvider {
 		});
 	}
 
-	async sendmail(message: IMessage): Promise<void> {
+	async sendMail(message: IMessage): Promise<void> {
 		await this.transporter.sendMail({
 			to: {
 				name: message.to.name,
