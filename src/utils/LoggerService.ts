@@ -3,25 +3,35 @@ import { join } from 'path';
 import { writeFile } from 'fs/promises';
 
 export class LoggerService implements ILoggerService {
-	logInfo(message: string): Promise<string> {
+	logInfo(
+		message: string,
+		options: Record<string, any>,
+	): string | Promise<any> {
+		if (options.saveOnFile) {
+			this.writeLog(message);
+		}
+
+		if (message) console.info(message);
+
+		return message;
+	}
+
+	logError(message: string): Promise<string> | string {
 		throw new Error('Method not implemented.');
 	}
 
-	logError(message: string): Promise<string> {
+	logWarn(message: string): Promise<string> | string {
 		throw new Error('Method not implemented.');
 	}
 
-	logWarn(message: string): Promise<string> {
+	logDebug(message: string): Promise<string> | string {
 		throw new Error('Method not implemented.');
 	}
 
-	logDebug(message: string): Promise<string> {
-		throw new Error('Method not implemented.');
-	}
-
-	writeLog(message: string): Promise<void> {
-		return writeFile(join(__dirname, 'logs.log'), message, {
+	async writeLog(message: string): Promise<any> {
+		const file = await writeFile(join(__dirname, 'logs.log'), message, {
 			flag: 'w',
 		});
+		return file;
 	}
 }

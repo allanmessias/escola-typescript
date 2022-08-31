@@ -1,7 +1,7 @@
 import { Student } from '../../entities/Student';
 import { IMailProvider } from '../../providers/IMailProvider';
-import { IStudentRepository } from '../../repositories/IStudentRepository';
-import { ILoggerService } from '../../Services/ILoggerService';
+import { IStudentRepository } from '../../repositories/Students/IStudentRepository';
+import { ILoggerService } from '../../utils/ILoggerService';
 import { ICreateStudentRequestDTO } from './CreateStudentDTO';
 
 export class CreateStudentUseCase {
@@ -20,10 +20,9 @@ export class CreateStudentUseCase {
 
 		const student = new Student(data);
 
-		await this.logService.createLog(
-			'info',
-			'Creating Student and Sending E-mail',
-		);
+		await this.logService.logInfo('teste', {
+			saveOnFile: true,
+		});
 		await this.studentRepository.save(student);
 		await this.sendMail(student);
 	}
