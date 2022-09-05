@@ -1,2 +1,2 @@
 # agenda-typescript
-Projeto Agenda usando conceitos de Clean Architeture
+Projeto Escola usando conceitos de Clean Architeture
